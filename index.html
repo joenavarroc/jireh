@@ -12,7 +12,7 @@
 <style>
 .logo-header {
   background: linear-gradient(to right, #012127, #80c9d6); /* De izquierda a derecha */
-  height: 150px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* 🔄 Esto alinea el logo a la izquierda */
@@ -22,7 +22,7 @@
 }
 
 .logo-img {
-  max-height: 95%;
+  max-height: 90%;
   width: auto;
   object-fit: contain;
   display: block;
@@ -118,7 +118,21 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); } /* mueve solo medio, porque el contenido está duplicado */
 }
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
+.btn-custom {
+  background-color: #018ba6;  /* el color que quieras */
+  color: white;
+  border: none;
+}
+
+.btn-custom:hover {
+  background-color: #01697f;  /* un color un poco más oscuro para el hover */
+}
 
 </style>
 
@@ -281,6 +295,44 @@
     </div>
     </div>
 
+          <!-- Tarjetas horizontales -->
+        <div class="container my-5">
+        <div class="row justify-content-center g-4">
+            <h3>¿Como Trabajamos?</h3>
+
+        <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://img.youtube.com/vi/nHoo75hzs24/hqdefault.jpg" class="card-img-top" alt="Video YouTube" />
+          <div class="card-body">
+            <h5 class="card-title">Instalacion</h5>
+            <p class="card-text">Planificacion, Ejecucion del trabajo y Testeo</p>
+            <button class="btn btn-custom open-video" data-video="nHoo75hzs24">Ver Video</button>
+          </div>
+        </div>
+      </div>
+        <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://img.youtube.com/vi/1ZS4QUB5-fs/hqdefault.jpg" class="card-img-top" alt="Video YouTube" />
+          <div class="card-body">
+            <h5 class="card-title">Reparacion</h5>
+            <p class="card-text">Evaluacion y diagnostico, Presupuestar y Arreglo</p>
+            <button class="btn btn-custom open-video" data-video="1ZS4QUB5-fs">Ver Video</button>
+          </div>
+        </div>
+      </div>
+        <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://img.youtube.com/vi/eybtESO6SGk/hqdefault.jpg" class="card-img-top" alt="Video YouTube" />
+          <div class="card-body">
+            <h5 class="card-title">Mantenimiento</h5>
+            <p class="card-text">Limpieza, reemplazar piezas desgastada (si lo precisa), testeo</p>
+            <button class="btn btn-custom open-video" data-video="eybtESO6SGk">Ver Video</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- Banner informativo con métodos de pago -->
     <div class="container-fluid bg-custom py-4 border-top border-bottom mb-5" id="pago">
         <div class="row text-center text-white fs-5">
@@ -328,6 +380,19 @@
         <img src="philco.svg" alt="Philco">
     </div>
     </div>
+  
+    <!-- Modal para Video -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-dark">
+        <div class="modal-body p-0">
+          <div class="ratio ratio-16x9">
+            <iframe id="videoIframe" src="" title="Video de YouTube" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Icono flotante de WhatsApp -->
     <a href="https://wa.me/5491140907319" target="_blank" id="whatsapp-icon">
@@ -382,6 +447,22 @@
   <script>
     // Actualizar año automáticamente
     document.querySelector('.year').textContent = new Date().getFullYear();
+
+    const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+    const videoIframe = document.getElementById('videoIframe');
+
+document.querySelectorAll('.open-video').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const videoId = btn.getAttribute('data-video');
+    videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    videoModal.show();
+  });
+});
+
+
+    document.getElementById('videoModal').addEventListener('hidden.bs.modal', () => {
+      videoIframe.src = ''; // Detiene el video al cerrar el modal
+    });
   </script>
 </body>
 </html>
